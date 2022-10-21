@@ -39,8 +39,7 @@ if summoner_name != '':
     last_match = my_matches[0]
     match_detail = watcher.match.by_id(region=my_region, match_id=last_match)
     df = pd.DataFrame(match_detail['info']['participants'])
-    df.loc[df.teamId == 100, 'team'] = 'red'
-    df.loc[df.teamId == 200, 'team'] = 'blue'
+    
     
     df = pd.concat([df.drop(['challenges'], axis=1), df['challenges'].apply(pd.Series).drop(['killingSprees','turretTakedowns' ], axis=1)], axis=1)
     

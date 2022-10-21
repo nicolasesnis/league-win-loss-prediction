@@ -2,9 +2,14 @@ import streamlit as st
 import json
 from riotwatcher import LolWatcher, ApiError
 import pandas as pd
-
+import datetime
+from src.get_live_data import listen_to_game
 
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed')
+
+
+listen_to_game()
+
 
 st.title('League of Legends Win / Loss Prediction tool')
 col1, col2, col3, col4, col5 = st.columns([2,2,2,1,2])
@@ -31,13 +36,27 @@ if summoner_name != '':
         st.write(my_ranked_stats[0]['tier'] + ' ' + my_ranked_stats[0]['rank']) 
 
     
-    st.write('Last Match')
     
-    # Pull latest match data
     
+    try:
+        current_match = watcher.spectator.by_summoner(region=my_region, encrypted_summoner_id=me['id'])
+        st.write(current_match)
+        match_id = current_match['platformId'] + '_' + str(current_match['gameId'])
+        st.write('Current Match: ' + match_id)
+        start_time = datetime.datetime.fromtimestamp(current_match['gameStartTime'] / 1000).replace(microsecond=0)
+        game_length = datetime.timedelta(seconds=current_match['gameLength'])
+        st.write('Match started at ' + str(start_time) + ' - Time in game so far: ' + str(game_length))
+        st.write('Match ID: ' +match_id)
+    except ApiError as err:
+        if '404' in str(err):
+            st.warning('No current game for this summoner. Pulling last game data.')
+            my_matches = watcher.match.matchlist_by_puuid(region=my_region, puuid=me['puuid'])
+            match_id = my_matches[0]
+            st.write('Last Match')
     my_matches = watcher.match.matchlist_by_puuid(region=my_region, puuid=me['puuid'])
-    last_match = my_matches[0]
-    match_detail = watcher.match.by_id(region=my_region, match_id=last_match)
+    match_id = my_matches[0]
+    st.write(my_matches)
+    match_detail = watcher.match.by_id(region=my_region, match_id=match_id)
     df = pd.DataFrame(match_detail['info']['participants'])
     
     

@@ -35,6 +35,8 @@ def listen_to_game():
 
         # Send to RabbitMQ queue.
         if response.status_code != 404:
-            to_send = build_object(content =  response.json())
-            send_message( to_send)
+            st.write(123)
+            
+            # to_send = build_object(content =  response.json())
+            # send_message( to_send)
         time.sleep(5) # wait 30 seconds before making another request

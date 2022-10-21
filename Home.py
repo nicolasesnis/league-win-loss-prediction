@@ -3,12 +3,12 @@ import json
 from riotwatcher import LolWatcher, ApiError
 import pandas as pd
 import datetime
-from src.get_live_data import listen_to_game
+# from src.get_live_data import listen_to_game
 
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed')
 
 
-listen_to_game()
+# listen_to_game()
 
 
 st.title('League of Legends Win / Loss Prediction tool')

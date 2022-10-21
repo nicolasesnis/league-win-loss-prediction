@@ -12,7 +12,6 @@ with col1:
 with col2:
     my_region = st.selectbox('Region', ['na1'])
 
-
 watcher = LolWatcher(st.secrets['riot_api_key'])
 versions = watcher.data_dragon.versions_for_region(my_region)
 
@@ -30,24 +29,37 @@ if summoner_name != '':
         st.write('Level ' + str(me['summonerLevel']))
         st.write(my_ranked_stats[0]['tier'] + ' ' + my_ranked_stats[0]['rank']) 
 
+    
+    st.write('Last Match')
+    
     my_matches = watcher.match.matchlist_by_puuid(region=my_region, puuid=me['puuid'])
     last_match = my_matches[0]
     match_detail = watcher.match.by_id(region=my_region, match_id=last_match)
-    
     df = pd.DataFrame(match_detail['info']['participants'])
     df.loc[df.teamId == 100, 'team'] = 'red'
     df.loc[df.teamId == 200, 'team'] = 'blue'
+    df = pd.concat([df.drop(['challenges'], axis=1), df['challenges'].apply(pd.Series).drop(['killingSprees','turretTakedowns' ], axis=1)], axis=1)
     st.dataframe(df)
     
+#     col1, col2 = st.columns(2)
+#     with col1:
+        
+#         st.write(participants[0:4])
+#     with col2:
+#         st.write(participants[5:9])
     
     
+#     st.dataframe(df)
+    
+    
+    
 
 
 
 
-# # Lets get some champions
-# current_champ_list = watcher.data_dragon.champions(champions_version)
-# st.write(current_champ_list)
+# # # Lets get some champions
+# # current_champ_list = watcher.data_dragon.champions(champions_version)
+# # st.write(current_champ_list)
 
 
 

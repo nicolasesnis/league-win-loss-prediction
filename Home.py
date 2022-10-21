@@ -1,4 +1,5 @@
 import streamlit as st 
+import json
 from riotwatcher import LolWatcher, ApiError
 import pandas as pd
 
@@ -32,13 +33,29 @@ if summoner_name != '':
     
     st.write('Last Match')
     
+    # Pull latest match data
+    
     my_matches = watcher.match.matchlist_by_puuid(region=my_region, puuid=me['puuid'])
     last_match = my_matches[0]
     match_detail = watcher.match.by_id(region=my_region, match_id=last_match)
     df = pd.DataFrame(match_detail['info']['participants'])
     df.loc[df.teamId == 100, 'team'] = 'red'
     df.loc[df.teamId == 200, 'team'] = 'blue'
+    
     df = pd.concat([df.drop(['challenges'], axis=1), df['challenges'].apply(pd.Series).drop(['killingSprees','turretTakedowns' ], axis=1)], axis=1)
+    
+    # Columns Explanation
+    c_dict_path = 'columns.json'
+    with open(c_dict_path, 'r') as f:
+        c_dict = json.load(f)
+    for c in df.columns:
+        if c not in c_dict.keys():
+            c_dict[c] = {'description': '', 'type': str(df[c].dtype)}
+    col = st.selectbox('Features info.', c_dict.keys())
+    st.code(c_dict[col])
+    st.code(df[['championName', col]])
+    
+    
     st.dataframe(df)
     
 #     col1, col2 = st.columns(2)

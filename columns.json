@@ -1,0 +1,702 @@
+{
+  "assists": { "description": "Number of assists", "type": "int64" },
+  "baronKills": { "description": "Number of Baron killls", "type": "int64" },
+  "basicPings": { "description": "Number of pings", "type": "int64" },
+  "bountyLevel": {
+    "description": "Max level of bounty reached (I think max is 10)",
+    "type": "int64"
+  },
+  "champExperience": {
+    "description": "Value of accumulated XP",
+    "type": "int64"
+  },
+  "champLevel": { "description": "Level", "type": "int64" },
+  "championId": { "description": "Champion ID", "type": "int64" },
+  "championName": { "description": "Champion Name", "type": "object" },
+  "championTransform": {
+    "description": "Number of times the champion transformed",
+    "type": "int64"
+  },
+  "consumablesPurchased": {
+    "description": "Number of consumables purchased",
+    "type": "int64"
+  },
+  "damageDealtToBuildings": {
+    "description": "Value of damage dealt to buildings",
+    "type": "int64"
+  },
+  "damageDealtToObjectives": {
+    "description": "Value of damage dealt to objectives",
+    "type": "int64"
+  },
+  "damageDealtToTurrets": {
+    "description": "Value of damage dealt to turrets",
+    "type": "int64"
+  },
+  "damageSelfMitigated": {
+    "description": "Value of self mitigated damage",
+    "type": "int64"
+  },
+  "deaths": { "description": "Number of deaths", "type": "int64" },
+  "detectorWardsPlaced": { "description": "Must be pinks?", "type": "int64" },
+  "doubleKills": { "description": "Number of double kills", "type": "int64" },
+  "dragonKills": { "description": "Number of dragon kills", "type": "int64" },
+  "eligibleForProgression": { "description": "???", "type": "bool" },
+  "firstBloodAssist": {
+    "description": "True if first blood assist",
+    "type": "bool"
+  },
+  "firstBloodKill": { "description": "True if first blood", "type": "bool" },
+  "firstTowerAssist": {
+    "description": "True if first tower assist",
+    "type": "bool"
+  },
+  "firstTowerKill": {
+    "description": "True if first tower kill",
+    "type": "bool"
+  },
+  "gameEndedInEarlySurrender": {
+    "description": "True if ff 15mn",
+    "type": "bool"
+  },
+  "gameEndedInSurrender": {
+    "description": "True if enemy team ff",
+    "type": "bool"
+  },
+  "goldEarned": { "description": "Value of gold earned", "type": "int64" },
+  "goldSpent": { "description": "Value of gold spent", "type": "int64" },
+  "individualPosition": { "description": "???", "type": "object" },
+  "inhibitorKills": {
+    "description": "Number of inhibitors kills",
+    "type": "int64"
+  },
+  "inhibitorTakedowns": {
+    "description": "Number of inhibitors takedowns",
+    "type": "int64"
+  },
+  "inhibitorsLost": {
+    "description": "Number of inhibitors lost",
+    "type": "int64"
+  },
+  "item0": { "description": "ID of first item (???)", "type": "int64" },
+  "item1": { "description": "Second item", "type": "int64" },
+  "item2": { "description": "Third item", "type": "int64" },
+  "item3": { "description": "Fourth item", "type": "int64" },
+  "item4": { "description": "Fivth item", "type": "int64" },
+  "item5": { "description": "Sixth item", "type": "int64" },
+  "item6": { "description": "Seventh item", "type": "int64" },
+  "itemsPurchased": {
+    "description": "Number of items purchased",
+    "type": "int64"
+  },
+  "killingSprees": {
+    "description": "Number of killing sprees",
+    "type": "int64"
+  },
+  "kills": { "description": "Number of kills", "type": "int64" },
+  "lane": { "description": "Name of lane", "type": "object" },
+  "largestCriticalStrike": {
+    "description": "Value of largers critical strike",
+    "type": "int64"
+  },
+  "largestKillingSpree": {
+    "description": "Value of largest killing spree",
+    "type": "int64"
+  },
+  "largestMultiKill": {
+    "description": "Value of largest multi kill",
+    "type": "int64"
+  },
+  "longestTimeSpentLiving": {
+    "description": "Length of longest time spent living",
+    "type": "int64"
+  },
+  "magicDamageDealt": {
+    "description": "Value of magic damage deals",
+    "type": "int64"
+  },
+  "magicDamageDealtToChampions": {
+    "description": "Value of magic damage dealt to champions",
+    "type": "int64"
+  },
+  "magicDamageTaken": {
+    "description": "Value of magic damage taken",
+    "type": "int64"
+  },
+  "neutralMinionsKilled": {
+    "description": "Number of neutral minions killed",
+    "type": "int64"
+  },
+  "nexusKills": { "description": "Number of nexus kills", "type": "int64" },
+  "nexusLost": { "description": "Number of nexus lost", "type": "int64" },
+  "nexusTakedowns": {
+    "description": "Number of nexus takedowns",
+    "type": "int64"
+  },
+  "objectivesStolen": {
+    "description": "Number of objectives stolen",
+    "type": "int64"
+  },
+  "objectivesStolenAssists": {
+    "description": "Number of stolen assists",
+    "type": "int64"
+  },
+  "participantId": { "description": "Participant ID", "type": "int64" },
+  "pentaKills": { "description": "Number of pentakills", "type": "int64" },
+  "perks": { "description": "???", "type": "object" },
+  "physicalDamageDealt": {
+    "description": "Value of total physical damage dealt",
+    "type": "int64"
+  },
+  "physicalDamageDealtToChampions": {
+    "description": "Value of total physical damage dealt to champions",
+    "type": "int64"
+  },
+  "physicalDamageTaken": {
+    "description": "Value of total physical damage taken",
+    "type": "int64"
+  },
+  "profileIcon": { "description": "Profile icon", "type": "int64" },
+  "puuid": { "description": "PUUID", "type": "object" },
+  "quadraKills": { "description": "Number of quadrakills", "type": "int64" },
+  "riotIdName": { "description": "Riot ID Name", "type": "object" },
+  "riotIdTagline": { "description": "Riot ID Tag Line", "type": "object" },
+  "role": { "description": "Role", "type": "object" },
+  "sightWardsBoughtInGame": {
+    "description": "Number of sight wards bought in game",
+    "type": "int64"
+  },
+  "spell1Casts": { "description": "Number of Spell 1 casts", "type": "int64" },
+  "spell2Casts": { "description": "Number of Spell 2 casts", "type": "int64" },
+  "spell3Casts": { "description": "Number of Spell 3 casts", "type": "int64" },
+  "spell4Casts": { "description": "Number of Spell 4 casts", "type": "int64" },
+  "summoner1Casts": {
+    "description": "Number of summoner 1 casts",
+    "type": "int64"
+  },
+  "summoner1Id": { "description": "ID of summonner 1 cast", "type": "int64" },
+  "summoner2Casts": {
+    "description": "Number of summoner 2 casts",
+    "type": "int64"
+  },
+  "summoner2Id": { "description": "ID of summonner 1 cast", "type": "int64" },
+  "summonerId": { "description": "Summoner ID", "type": "object" },
+  "summonerLevel": { "description": "Level of summoner", "type": "int64" },
+  "summonerName": { "description": "Summoner Name", "type": "object" },
+  "teamEarlySurrendered": {
+    "description": "True if the team ff 15",
+    "type": "bool"
+  },
+  "teamId": { "description": "Team ID", "type": "int64" },
+  "teamPosition": { "description": "Team position", "type": "object" },
+  "timeCCingOthers": {
+    "description": "Number of time cc'ing enemy team",
+    "type": "int64"
+  },
+  "timePlayed": { "description": "???", "type": "int64" },
+  "totalDamageDealt": {
+    "description": "Value of total damage dealt",
+    "type": "int64"
+  },
+  "totalDamageDealtToChampions": {
+    "description": "Value of total damage dealt to champions",
+    "type": "int64"
+  },
+  "totalDamageShieldedOnTeammates": {
+    "description": "Value of total damage shielded on teamates",
+    "type": "int64"
+  },
+  "totalDamageTaken": {
+    "description": "Value of total damage taken",
+    "type": "int64"
+  },
+  "totalHeal": { "description": "Value of total heal", "type": "int64" },
+  "totalHealsOnTeammates": {
+    "description": "Value of total heal on teammates",
+    "type": "int64"
+  },
+  "totalMinionsKilled": {
+    "description": "Number of minions killed",
+    "type": "int64"
+  },
+  "totalTimeCCDealt": {
+    "description": "Number of seconds (?) cc'ing others",
+    "type": "int64"
+  },
+  "totalTimeSpentDead": {
+    "description": "Number of seconds (?) spent dead",
+    "type": "int64"
+  },
+  "totalUnitsHealed": {
+    "description": "Number of units healed",
+    "type": "int64"
+  },
+  "tripleKills": { "description": "Number of triple kills", "type": "int64" },
+  "trueDamageDealt": {
+    "description": "Value of true damage deals",
+    "type": "int64"
+  },
+  "trueDamageDealtToChampions": {
+    "description": "Value of true damage deals to champions",
+    "type": "int64"
+  },
+  "trueDamageTaken": {
+    "description": "Value of true damage taken",
+    "type": "int64"
+  },
+  "turretKills": { "description": "Number of turret kills", "type": "int64" },
+  "turretTakedowns": {
+    "description": "Number of turret takedowns",
+    "type": "int64"
+  },
+  "turretsLost": { "description": "Number of turrets lost", "type": "int64" },
+  "unrealKills": {
+    "description": "Number of unreal kills (???)",
+    "type": "int64"
+  },
+  "visionScore": { "description": "Value of Vision Score", "type": "int64" },
+  "visionWardsBoughtInGame": {
+    "description": "Number of vision wards bought in game",
+    "type": "int64"
+  },
+  "wardsKilled": { "description": "Number of wards killed", "type": "int64" },
+  "wardsPlaced": { "description": "Number of wards placed", "type": "int64" },
+  "win": { "description": "True if win", "type": "bool" },
+  "team": { "description": "Red/Blue", "type": "object" },
+  "12AssistStreakCount": { "description": "???", "type": "float64" },
+  "abilityUses": { "description": "???", "type": "float64" },
+  "acesBefore15Minutes": {
+    "description": "Number of aces before 15 minutes",
+    "type": "float64"
+  },
+  "alliedJungleMonsterKills": {
+    "description": "Number of allied jungle monster kills",
+    "type": "float64"
+  },
+  "baronTakedowns": {
+    "description": "Number of baron takedowns",
+    "type": "float64"
+  },
+  "blastConeOppositeOpponentCount": {
+    "description": "Number of blast cone done by the enemy team (I think)",
+    "type": "float64"
+  },
+  "bountyGold": {
+    "description": "Gold value obtained from bounties",
+    "type": "float64"
+  },
+  "buffsStolen": { "description": "Number of buffs stolen", "type": "float64" },
+  "completeSupportQuestInTime": {
+    "description": "1 if complete support quest in time",
+    "type": "float64"
+  },
+  "controlWardsPlaced": {
+    "description": "Number of control wards placed",
+    "type": "float64"
+  },
+  "damagePerMinute": {
+    "description": "Value of damage per minute",
+    "type": "float64"
+  },
+  "damageTakenOnTeamPercentage": {
+    "description": "Percentage of damage taken vs. the team",
+    "type": "float64"
+  },
+  "dancedWithRiftHerald": {
+    "description": "1 if danced with Rift Herald (???)",
+    "type": "float64"
+  },
+  "deathsByEnemyChamps": {
+    "description": "Number of deaths by enemy champions",
+    "type": "float64"
+  },
+  "dodgeSkillShotsSmallWindow": {
+    "description": "Number of dodge skill shorts in a small window (???)",
+    "type": "float64"
+  },
+  "doubleAces": {
+    "description": "Number of double aces (???)",
+    "type": "float64"
+  },
+  "dragonTakedowns": {
+    "description": "Number of dragon takedowns",
+    "type": "float64"
+  },
+  "earlyLaningPhaseGoldExpAdvantage": {
+    "description": "Value of early laning phase gold and XP advantage",
+    "type": "float64"
+  },
+  "effectiveHealAndShielding": {
+    "description": "Value of effective heal and shielding",
+    "type": "float64"
+  },
+  "elderDragonKillsWithOpposingSoul": {
+    "description": "Number of times the elder dragon was killed although the enemy team had soul",
+    "type": "float64"
+  },
+  "elderDragonMultikills": {
+    "description": "Number of elder dragon multikills (???)",
+    "type": "float64"
+  },
+  "enemyChampionImmobilizations": {
+    "description": "Number of enemy champion immobilizations",
+    "type": "float64"
+  },
+  "enemyJungleMonsterKills": {
+    "description": "Number of monsters killed by the enemy jungle",
+    "type": "float64"
+  },
+  "epicMonsterKillsNearEnemyJungler": {
+    "description": "Number of epic monsters killed while the enemy jungle was near",
+    "type": "float64"
+  },
+  "epicMonsterKillsWithin30SecondsOfSpawn": {
+    "description": "Numbre of epic monsters that were killed within 30 seconds of spawn",
+    "type": "float64"
+  },
+  "epicMonsterSteals": {
+    "description": "Number of epic monster steals",
+    "type": "float64"
+  },
+  "epicMonsterStolenWithoutSmite": {
+    "description": "Number of epic monsters stolen without using Smite",
+    "type": "float64"
+  },
+  "firstTurretKilledTime": {
+    "description": "Amount of time lapsed until the first turret was destroyed",
+    "type": "float64"
+  },
+  "flawlessAces": {
+    "description": "Number of flawless aces (???)",
+    "type": "float64"
+  },
+  "fullTeamTakedown": {
+    "description": "Number of full team takedowns",
+    "type": "float64"
+  },
+  "gameLength": { "description": "Length of the game", "type": "float64" },
+  "getTakedownsInAllLanesEarlyJungleAsLaner": {
+    "description": "1 if the jungler gets takedowns in all lanes in the early phase",
+    "type": "float64"
+  },
+  "goldPerMinute": {
+    "description": "Value of gold per minute",
+    "type": "float64"
+  },
+  "hadOpenNexus": {
+    "description": "1 if the nexus was open",
+    "type": "float64"
+  },
+  "immobilizeAndKillWithAlly": {
+    "description": "Number of immobiliza and kill with ally",
+    "type": "float64"
+  },
+  "initialBuffCount": {
+    "description": "Number of initial buffs taken (the first buffs that spawn)",
+    "type": "float64"
+  },
+  "initialCrabCount": {
+    "description": "Number of initial crabs taken",
+    "type": "float64"
+  },
+  "jungleCsBefore10Minutes": {
+    "description": "Value of jungle cs before 10 minutes",
+    "type": "float64"
+  },
+  "junglerTakedownsNearDamagedEpicMonster": {
+    "description": "Number of jungler takedowns near a damaged edpic monster",
+    "type": "float64"
+  },
+  "kTurretsDestroyedBeforePlatesFall": {
+    "description": "???",
+    "type": "float64"
+  },
+  "kda": { "description": "(Kills + Assists) / Deaths", "type": "float64" },
+  "killAfterHiddenWithAlly": {
+    "description": "Number of kills after hidden with an ally",
+    "type": "float64"
+  },
+  "killParticipation": {
+    "description": "Value of kill participation (is it a %?)",
+    "type": "float64"
+  },
+  "killedChampTookFullTeamDamageSurvived": {
+    "description": "???",
+    "type": "float64"
+  },
+  "killsNearEnemyTurret": {
+    "description": "Number of kills near an enemy turret",
+    "type": "float64"
+  },
+  "killsOnOtherLanesEarlyJungleAsLaner": {
+    "description": "???",
+    "type": "float64"
+  },
+  "killsOnRecentlyHealedByAramPack": {
+    "description": "???",
+    "type": "float64"
+  },
+  "killsUnderOwnTurret": {
+    "description": "Number of kills under own turret",
+    "type": "float64"
+  },
+  "killsWithHelpFromEpicMonster": {
+    "description": "Number of kills with help from epic monster",
+    "type": "float64"
+  },
+  "knockEnemyIntoTeamAndKill": { "description": "???", "type": "float64" },
+  "landSkillShotsEarlyGame": {
+    "description": "Number of land skillshorts in early game",
+    "type": "float64"
+  },
+  "laneMinionsFirst10Minutes": {
+    "description": "Number of minions killed in lane within the first 10 minutes",
+    "type": "float64"
+  },
+  "laningPhaseGoldExpAdvantage": {
+    "description": "1 if the champion had the absolute Gold and XP advantage during the laning phase.",
+    "type": "float64"
+  },
+  "legendaryCount": {
+    "description": "Number of times a champion was 'legendary', per champion.",
+    "type": "float64"
+  },
+  "lostAnInhibitor": {
+    "description": "Number of times an inhibitor was lost",
+    "type": "float64"
+  },
+  "maxCsAdvantageOnLaneOpponent": {
+    "description": "Maximum number of CS advantage against the lane opponent, per champion. 0 if the champion never had a CS advantage.",
+    "type": "float64"
+  },
+  "maxKillDeficit": {
+    "description": "Value of the max kill deficit between a champion from red and a champion from blue. The value is equal for all champions of a same team",
+    "type": "float64"
+  },
+  "maxLevelLeadLaneOpponent": {
+    "description": "Value of the max level lead against lane opponent, per champion",
+    "type": "float64"
+  },
+  "moreEnemyJungleThanOpponent": { "description": "???", "type": "float64" },
+  "multiKillOneSpell": {
+    "description": "Number of multi kills done under a single spell, per champion",
+    "type": "float64"
+  },
+  "multiTurretRiftHeraldCount": {
+    "description": "Number of heralds that took 2+ turrets",
+    "type": "float64"
+  },
+  "multikills": {
+    "description": "Number of multikills per champions",
+    "type": "float64"
+  },
+  "multikillsAfterAggressiveFlash": { "description": "???", "type": "float64" },
+  "mythicItemUsed": { "description": "???", "type": "float64" },
+  "outerTurretExecutesBefore10Minutes": {
+    "description": "Number of times a champion was executed by a turret before 10mn",
+    "type": "float64"
+  },
+  "outnumberedKills": {
+    "description": "Number of outnumbered kills per champion",
+    "type": "float64"
+  },
+  "outnumberedNexusKill": {
+    "description": "Number of outnumber kills done near the nexus per champion",
+    "type": "float64"
+  },
+  "perfectDragonSoulsTaken": {
+    "description": "1 for all champions in the team that had a perfect Soul (4 first drags)",
+    "type": "float64"
+  },
+  "perfectGame": {
+    "description": "1 for all champions in the winning team if it was a perfect game",
+    "type": "float64"
+  },
+  "pickKillWithAlly": {
+    "description": "Number of pick kills done with an ally",
+    "type": "float64"
+  },
+  "playedChampSelectPosition": {
+    "description": "1 if played champ select position, 0 if swapped",
+    "type": "float64"
+  },
+  "poroExplosions": {
+    "description": "Number of poro explosions (ARAM)",
+    "type": "float64"
+  },
+  "quickCleanse": {
+    "description": "1 if the champion did a quick cleanse",
+    "type": "float64"
+  },
+  "quickFirstTurret": {
+    "description": "1 if the champion got a quick first turret",
+    "type": "float64"
+  },
+  "quickSoloKills": {
+    "description": "Number of quick solo kills per champion",
+    "type": "float64"
+  },
+  "riftHeraldTakedowns": {
+    "description": "Number of rift herald takedowns per champion (teamates who did not participate get 0)",
+    "type": "float64"
+  },
+  "saveAllyFromDeath": {
+    "description": "Number of times a champion saved an ally from death",
+    "type": "float64"
+  },
+  "scuttleCrabKills": {
+    "description": "Number of scuttle crab kills per champion",
+    "type": "float64"
+  },
+  "skillshotsDodged": {
+    "description": "Number of skill shots hits dodged per champion",
+    "type": "float64"
+  },
+  "skillshotsHit": {
+    "description": "Number of skill shots hits per champion",
+    "type": "float64"
+  },
+  "snowballsHit": {
+    "description": "Number of snowball hits (ARAM)",
+    "type": "float64"
+  },
+  "soloBaronKills": {
+    "description": "Number of solo Baron kills per champion",
+    "type": "float64"
+  },
+  "soloKills": {
+    "description": "Number of solo kills per champion",
+    "type": "float64"
+  },
+  "stealthWardsPlaced": {
+    "description": "Number of pinks placed per champion",
+    "type": "float64"
+  },
+  "survivedSingleDigitHpCount": {
+    "description": "Number of times a champion survived having less than 10 HP left",
+    "type": "float64"
+  },
+  "survivedThreeImmobilizesInFight": {
+    "description": "Amount of times a champion survived after being immobilized 3 times in a fight",
+    "type": "float64"
+  },
+  "takedownOnFirstTurret": {
+    "description": "Number of takedowns down under T1",
+    "type": "float64"
+  },
+  "takedowns": {
+    "description": "Number of takedowns, per champion",
+    "type": "float64"
+  },
+  "takedownsAfterGainingLevelAdvantage": {
+    "description": "Number of takedowns after having gained a level advantage",
+    "type": "float64"
+  },
+  "takedownsBeforeJungleMinionSpawn": {
+    "description": "Number of takedowns before the jungle minions spawned",
+    "type": "float64"
+  },
+  "takedownsFirstXMinutes": { "description": "???", "type": "float64" },
+  "takedownsInAlcove": {
+    "description": "Number of kills done in an alcove",
+    "type": "float64"
+  },
+  "takedownsInEnemyFountain": {
+    "description": "Number of takedowns done in enemy fountain",
+    "type": "float64"
+  },
+  "teamBaronKills": {
+    "description": "Number of baron kills that were done with the whole team",
+    "type": "float64"
+  },
+  "teamDamagePercentage": {
+    "description": "Value of total demage dealt percentage vs. own team",
+    "type": "float64"
+  },
+  "teamElderDragonKills": {
+    "description": "Number of elder dragon kills",
+    "type": "float64"
+  },
+  "teamRiftHeraldKills": {
+    "description": "Number of rift heralds kills",
+    "type": "float64"
+  },
+  "threeWardsOneSweeperCount": {
+    "description": "Number of times a champion took 3+ wards on a same sweeper",
+    "type": "float64"
+  },
+  "tookLargeDamageSurvived": { "description": "???", "type": "float64" },
+  "turretPlatesTaken": {
+    "description": "Number of turret plates taken",
+    "type": "float64"
+  },
+  "turretsTakenWithRiftHerald": {
+    "description": "Number of turrets taken with the Rift Herald",
+    "type": "float64"
+  },
+  "twentyMinionsIn3SecondsCount": {
+    "description": "Number of times the champion took twenty minions in 3 seconds",
+    "type": "float64"
+  },
+  "unseenRecalls": { "description": "", "type": "float64" },
+  "visionScoreAdvantageLaneOpponent": {
+    "description": "Value of the vision score advantage vs. lane opponent",
+    "type": "float64"
+  },
+  "visionScorePerMinute": {
+    "description": "Value of vision score per minute per champion",
+    "type": "float64"
+  },
+  "wardTakedowns": {
+    "description": "Number of wards takedowns",
+    "type": "float64"
+  },
+  "wardTakedownsBefore20M": {
+    "description": "Number of wards that were taken down before 20mn",
+    "type": "float64"
+  },
+  "wardsGuarded": {
+    "description": "Number of wards that were guarded",
+    "type": "float64"
+  },
+  "earliestDragonTakedown": {
+    "description": "Number of seconds if took, for each team, to takedown its first dragon. Only champions who participated to the takedown get a value.",
+    "type": "float64"
+  },
+  "junglerKillsEarlyJungle": {
+    "description": "Number of jungler kills during early jungle time",
+    "type": "float64"
+  },
+  "killsOnLanersEarlyJungleAsJungler": {
+    "description": "Number of kills on laners by the jungler during early jungle time",
+    "type": "float64"
+  },
+  "controlWardTimeCoverageInRiverOrEnemyHalf": {
+    "description": "???",
+    "type": "float64"
+  },
+  "fasterSupportQuestCompletion": {
+    "description": "1 if was the the first support with quest completion",
+    "type": "float64"
+  },
+  "highestCrowdControlScore": {
+    "description": "1 if was the champion having the highest crowd control",
+    "type": "float64"
+  },
+  "highestWardKills": {
+    "description": "1 if was the champion having the highest ward kills",
+    "type": "float64"
+  },
+  "highestChampionDamage": {
+    "description": "1 if was the champion having the highest damage",
+    "type": "float64"
+  },
+  "shortestTimeToAceFromFirstTakedown": {
+    "description": "Minimum amount of time elapsed between an ace and a takedown",
+    "type": "float64"
+  },
+  "fastestLegendary": {
+    "description": "Amount of time lapsed until a champion from the team became the first 'legendary' champion of the game",
+    "type": "float64"
+  }
+}

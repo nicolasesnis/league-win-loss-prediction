@@ -46,10 +46,11 @@ def process_participant_frames(participantFrames, team_individual_position_mappi
                     blue_lead_dict[individual_position + '_' + stat_name] -= stat_value
     
     sorted_blue_lead_dict = {key: value for key, value in sorted(blue_lead_dict.items())}
+    return sorted_blue_lead_dict
     
 
 
-def process_events_frames(events):
+def process_new_events_frames(events):
     # Quick function to keep it DRY
     def increment_dict(d, team_color, key, value=1):
         if key not in d[team_color].items():
@@ -91,7 +92,9 @@ def process_events_frames(events):
                 events_data_dict = increment_dict(events_data_dict, team_color, '_'.join([event['type'], event['towerType'], event['buildingType'], event['laneType']]))
             else: # inhibitor
                 events_data_dict = increment_dict(events_data_dict, team_color, '_'.join([event['type'], event['buildingType'], event['laneType']]))
-        elif event['type'] in ['DRAGON_SOUL_GIVEN', 'OBJECTIVE_BOUNTY_FINISH']:
+        if event['type'] == 'CHAMPION_KILL' and 'victimId' in event['type']:
+            events_data_dict = increment_dict(events_data_dict, 'blue' if team_color == 'red' else 'red', 'DEATHS')
+        if event['type'] in ['DRAGON_SOUL_GIVEN', 'OBJECTIVE_BOUNTY_FINISH', 'CHAMPION_KILL']:
             events_data_dict = increment_dict(events_data_dict, team_color, event['type'])
         if 'assistingParticipantIds' in event.keys(): # CHAMPION_KILL, ELITE_MONSTER_KILL
             for id in event['assistingParticipantIds']:
@@ -111,10 +114,17 @@ def process_events_frames(events):
     return sorted_blue_lead_dict
 
 
-def process_frame(frame, team_individual_position_mapping):
+def process_frame(frame, team_individual_position_mapping, prev_blue_events_lead):
     blue_stats_lead = process_participant_frames(frame['participantFrames'], team_individual_position_mapping)
-    blue_events_lead = process_events_frames(frame['events'])
-    st.code(blue_events_lead)
+    new_blue_events_lead = process_new_events_frames(frame['events'])
+    if prev_blue_events_lead:
+        for key, value in prev_blue_events_lead.items():
+            if key not in new_blue_events_lead.keys():
+                new_blue_events_lead[key] = value
+            else:
+                new_blue_events_lead[key] += value
+    return blue_stats_lead, new_blue_events_lead
+    
     
 
 def build(path):
@@ -124,8 +134,17 @@ def build(path):
     for match_id_fname in match_id_fnames:
         team_individual_position_mapping = read_s3_json_file('s3://league-pred-tool/' + path + '/raw_match_context/' + match_id_fname)
         frames = read_s3_json_file('s3://league-pred-tool/' + path + '/raw_match_frames/' + match_id_fname)
+        blue_events_lead = None
+        all_blue_leads = {}
         for frame in frames['info']['frames']:
-            process_frame(frame, team_individual_position_mapping)
+            blue_stats_lead, blue_events_lead = process_frame(frame, team_individual_position_mapping, blue_events_lead)
+            # convert ts to minute
+            all_blue_leads[int(round(frame['timestamp']/1000/60, 0))] = {
+                'blue_stats_lead': blue_stats_lead,
+                'blue_events_lead': blue_events_lead
+            }
+        st.code(all_blue_leads)
+        return
             
   
         

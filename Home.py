@@ -1,102 +1,53 @@
 import streamlit as st 
-import json
 from riotwatcher import LolWatcher, ApiError
 import pandas as pd
-import datetime
-# from src.get_live_data import listen_to_game
+from src.sagemaker_util import get_model_endpoint
+from src.get_data import pull_historical_frames
+from src.build_dataset import build
 
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed')
+st.title('Historical Game Win/Loss Prediction')
+st.info('Riot does not offer a real-time live game API. This tool allows the win probablity evolution (minute level) for past games only.')
 
-
-# listen_to_game()
-
-
-st.title('League of Legends Win / Loss Prediction tool')
-col1, col2, col3, col4, col5 = st.columns([2,2,2,1,2])
+col1, col2, col3, col4, col5 = st.columns([2,2,1,1,3])
 with col1:
     summoner_name = st.text_input('Enter Your Summoner Name', value='joyeux2cocotier')
 with col2:
-    my_region = st.selectbox('Region', ['na1'])
+    region = st.selectbox('Region', ['na1'])
+
 
 watcher = LolWatcher(st.secrets['riot_api_key'])
-versions = watcher.data_dragon.versions_for_region(my_region)
+versions = watcher.data_dragon.versions_for_region(region)
 
 icons=  watcher.data_dragon.profile_icons(version=versions['n']['profileicon'])
 
 if summoner_name != '':
-    me = watcher.summoner.by_name(my_region, summoner_name)
-    my_ranked_stats = watcher.league.by_summoner(my_region, me['id'])
+    me = watcher.summoner.by_name(region, summoner_name)
+    my_ranked_stats = watcher.league.by_summoner(region, me['id'])
+    my_ranked_stats = [s for s in my_ranked_stats if s['queueType'] == 'RANKED_SOLO_5x5'][0]
     
     with col4:
         icon_id_filename = icons['data'][str(me['profileIconId'])]['image']['full']
-        st.image('http://ddragon.leagueoflegends.com/cdn/' + versions['n']['profileicon'] + '/img/profileicon/' + icon_id_filename, width=75)
+        st.image('http://ddragon.leagueoflegends.com/cdn/' + versions['n']['profileicon'] + '/img/profileicon/' + icon_id_filename, width=100)
     with col5:
-        st.write(summoner_name)
-        st.write('Level ' + str(me['summonerLevel']))
-        st.write(my_ranked_stats[0]['tier'] + ' ' + my_ranked_stats[0]['rank']) 
+        st.write(summoner_name + ' | Level ' + str(me['summonerLevel']))
+        tier = my_ranked_stats['tier'] 
+        st.write(tier + ' ' + my_ranked_stats['rank'] + ' | ' + str(my_ranked_stats['leaguePoints']) + ' points') 
+        wr = my_ranked_stats['wins']  / my_ranked_stats['losses']
+        hot_streak = my_ranked_stats['hotStreak']
+        fresh_blood = my_ranked_stats['freshBlood'] 
+        st.write('Hot Streak: ' + str(hot_streak) + ' | ' + 'Fresh Blood: ' + str(fresh_blood))
+        st.write('Win Rate: ' + str(round(100 * wr, 2)) + '% ('  + str(my_ranked_stats['wins']) + ' wins ; ' + str(my_ranked_stats['losses'])  + ' losses)')
 
+    # Load model with params: Tier, Region
+    model_endpoint = get_model_endpoint(region, tier)
+    if model_endpoint ==404 and st.button('Pull 1000 matches'):
+        path = pull_historical_frames(region=region.upper(), tier=tier, number_matches = 10)
+    if st.button('Process raw data'):
+        build(path='raw_data/NA1/SILVER/I')
     
+    # my_matches = watcher.match.matchlist_by_puuid(region=region, puuid=me['puuid'])
+    # match_id = st.selectbox('Pick a match', my_matches)
+    # match_detail = watcher.match.by_id(region=region, match_id=match_id)
+    # st.code(match_detail)
     
-    
-    try:
-        current_match = watcher.spectator.by_summoner(region=my_region, encrypted_summoner_id=me['id'])
-        st.write(current_match)
-        match_id = current_match['platformId'] + '_' + str(current_match['gameId'])
-        st.write('Current Match: ' + match_id)
-        start_time = datetime.datetime.fromtimestamp(current_match['gameStartTime'] / 1000).replace(microsecond=0)
-        game_length = datetime.timedelta(seconds=current_match['gameLength'])
-        st.write('Match started at ' + str(start_time) + ' - Time in game so far: ' + str(game_length))
-        st.write('Match ID: ' +match_id)
-    except ApiError as err:
-        if '404' in str(err):
-            st.warning('No current game for this summoner. Pulling last game data.')
-            my_matches = watcher.match.matchlist_by_puuid(region=my_region, puuid=me['puuid'])
-            match_id = my_matches[0]
-            st.write('Last Match')
-    my_matches = watcher.match.matchlist_by_puuid(region=my_region, puuid=me['puuid'])
-    match_id = my_matches[0]
-    st.write(my_matches)
-    match_detail = watcher.match.by_id(region=my_region, match_id=match_id)
-    df = pd.DataFrame(match_detail['info']['participants'])
-    
-    
-    df = pd.concat([df.drop(['challenges'], axis=1), df['challenges'].apply(pd.Series).drop(['killingSprees','turretTakedowns' ], axis=1)], axis=1)
-    
-    # Columns Explanation
-    c_dict_path = 'columns.json'
-    with open(c_dict_path, 'r') as f:
-        c_dict = json.load(f)
-    for c in df.columns:
-        if c not in c_dict.keys():
-            c_dict[c] = {'description': '', 'type': str(df[c].dtype)}
-    col = st.selectbox('Features info.', c_dict.keys())
-    st.code(c_dict[col])
-    st.code(df[['championName', col]])
-    
-    
-    st.dataframe(df)
-    
-#     col1, col2 = st.columns(2)
-#     with col1:
-        
-#         st.write(participants[0:4])
-#     with col2:
-#         st.write(participants[5:9])
-    
-    
-#     st.dataframe(df)
-    
-    
-    
-
-
-
-
-# # # Lets get some champions
-# # current_champ_list = watcher.data_dragon.champions(champions_version)
-# # st.write(current_champ_list)
-
-
-
-
-

@@ -1,3 +1,4 @@
 riotwatcher
 autogluon
 awscli
+sagemaker

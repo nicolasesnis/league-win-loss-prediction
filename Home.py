@@ -57,6 +57,7 @@ if summoner_name != '':
     
     
     def check_if_match_is_on_s3(match_id):
+        st.write('s3://league-pred-tool/' + '/'.join(['raw_data', region.upper(), tier, division]) + '/raw_match_context')
         is_on_s3 =  match_id + '.json'  in list_bucket('s3://league-pred-tool/' + '/'.join(['raw_data', region.upper(), tier, division]) + '/raw_match_context', return_filenames_only=True)
         return is_on_s3
     is_on_s3 = check_if_match_is_on_s3(match_id)

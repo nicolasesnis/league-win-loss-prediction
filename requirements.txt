@@ -2,3 +2,4 @@ riotwatcher
 autogluon
 awscli
 sagemaker
+streamlit-aggrid

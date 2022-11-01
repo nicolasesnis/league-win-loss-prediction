@@ -1,4 +1,5 @@
 import boto3
+import botocore
 import json
 import shutil
 from awscli.customizations.s3.utils import split_s3_bucket_key
@@ -105,3 +106,15 @@ def read_s3_json_file(url, s3=s3_resource):
         return d
     except Exception as e:
         return 404
+
+def check_if_s3_key_exists(path, s3=s3_resource):
+    bucket_name, prefix = split_s3_bucket_key(path)
+    try:
+        s3.Object(bucket_name, prefix).load()
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == "404":
+            return False
+        else:
+            # Something else has gone wrong.
+            raise ValueError(e)
+    return True

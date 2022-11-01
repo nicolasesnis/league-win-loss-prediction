@@ -131,14 +131,14 @@ def process_frame_events(events, prev_blue_events_lead):
     return new_blue_events_lead
     
     
-def get_summoners_perf(participants_ids, team_individual_position_mapping, path, game_start_time):
+def get_summoners_perf(participants_ids, team_individual_position_mapping, s3_path, game_start_time):
     out = {'blue': {}, 'red': {}}
     for i, participant_id in enumerate(participants_ids):
         championId = team_individual_position_mapping[str(i)]['championId']
         individualPosition = team_individual_position_mapping[str(i)]['individualPosition']
         teamColor= 'blue' if i < 5 else 'red'
         out[teamColor][individualPosition] = {}
-        mastery = read_s3_json_file('s3://league-pred-tool/' + path + '/raw_summoner_champion_mastery_data/' + participant_id + '.json')
+        mastery = read_s3_json_file(s3_path + '/raw_summoner_champion_mastery_data/' + participant_id + '.json')
         if mastery != 404:
             mastery = [m for m in mastery if m['championId'] == championId]
             if len(mastery) != 0:
@@ -146,7 +146,7 @@ def get_summoners_perf(participants_ids, team_individual_position_mapping, path,
                 out[teamColor][individualPosition]['playerChampionPoints'] = mastery[0]['championPoints']
                 # out[teamColor][individualPosition]['playerDaysSinceLastPlayChamp'] = (pd.to_datetime(game_start_time, unit='ms') - pd.to_datetime(mastery[0]['lastPlayTime'], unit='ms')).days
                 out[teamColor][individualPosition]['playerChampionChestGranted'] = mastery[0]['chestGranted']
-        perf = read_s3_json_file('s3://league-pred-tool/' + path + '/raw_summoner_ranked_data/' + participant_id + '.json')
+        perf = read_s3_json_file(s3_path + '/raw_summoner_ranked_data/' + participant_id + '.json')
         if perf != 404:
             perf = [p for p in perf if p['queueType'] == 'RANKED_SOLO_5x5']
             if len(perf) != 0:
@@ -160,14 +160,14 @@ def get_summoners_perf(participants_ids, team_individual_position_mapping, path,
     return sorted_blue_summoners_lead
 
 
-def build_match_data(match_id_fname, path):
-    team_individual_position_mapping = read_s3_json_file('s3://league-pred-tool/' + path + '/raw_match_context/' + match_id_fname)
+def build_match_data(match_id_fname, s3_path):
+    team_individual_position_mapping = read_s3_json_file(s3_path + '/raw_match_context/' + match_id_fname)
     all_roles = [value['individualPosition'] for key, value in team_individual_position_mapping.items()]
     if 'Invalid' in all_roles:
         st.warning('Invalid match, please pick another match')
         return pd.DataFrame()
     
-    frames = read_s3_json_file('s3://league-pred-tool/' + path + '/raw_match_frames/' + match_id_fname)
+    frames = read_s3_json_file(s3_path + '/raw_match_frames/' + match_id_fname)
     
     blue_events_lead = None
     all_blue_leads = {}
@@ -176,7 +176,7 @@ def build_match_data(match_id_fname, path):
             game_start_time = frame['events'][0]['realTimestamp']
             blue_summoners_lead = get_summoners_perf(participants_ids=frames['metadata']['participants'], 
                                             team_individual_position_mapping=team_individual_position_mapping,
-                                            path=path,
+                                            s3_path=s3_path,
                                             game_start_time=game_start_time)
         # convert ts to minute
         all_blue_leads[int(round(frame['timestamp']/1000/60, 0))] = {
@@ -212,12 +212,12 @@ def build_match_data(match_id_fname, path):
     return df
                 
                 
-def build_training_dataset(path, dataset_name):
+def build_training_dataset(s3_path, dataset_name):
     # Path is like raw_data/NA1/SILVER/I
-    match_id_fnames = list_bucket('s3://league-pred-tool/' + path + '/raw_match_frames', return_filenames_only=True)
+    match_id_fnames = list_bucket(s3_path  + '/raw_match_frames', return_filenames_only=True)
     for i, match_id_fname in enumerate(match_id_fnames):
         try:
-            df = build_match_data(match_id_fname, path)
+            df = build_match_data(match_id_fname, s3_path)
             df.to_csv('raw_data/' + dataset_name, index=None, mode='w' if i == 0 else 'a', header = True if i == 0 else False)
         except Exception as e:
             st.warning(e)
